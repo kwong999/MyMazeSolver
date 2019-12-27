@@ -29,7 +29,7 @@ class Board {
     return emptyBoard;
   }
 
-  inRange = (num, min, max) => {
+  inRange(num, min, max) {
     if (!Number.isInteger(num)) return false;
     return ((num - min) * (num - max) <= 0);
   }
@@ -83,7 +83,7 @@ class Board {
       const currentPosCode = this.determineNextPosition();
       this.next_move(currentPosCode);
       finish = this.possibleMove.includes(this.end);
-      if (this.usedMove.length == this.possibleMove.length) {
+      if (this.possibleMove.filter(move => !this.usedMove.includes(move)).length === 0) {
         // no more possible move, still not reach the end
         finish = true;
         console.log('No Solution');
@@ -156,35 +156,39 @@ class Board {
   }
 }
 
+module.exports = Board;
+
 //test start
-let maze1 = new Board([3, 3]);
-maze1.changeTileType([0, 0], 'start');
-maze1.changeTileType([2, 2], 'end');
+// let maze1 = new Board([3, 3]);
+// maze1.changeTileType([0, 0], 'start');
+// maze1.changeTileType([0, 1], 'wall');
+// maze1.changeTileType([1, 1], 'wall');
+// maze1.changeTileType([0, 2], 'end');
 
-let maze2 = new Board([6, 14]);
-maze2.changeTileType([5, 0], 'start');
-maze2.changeTileType([0, 13], 'end');
-maze2.changeTileType([1, 4], 'wall');
-maze2.changeTileType([2, 4], 'wall');
-maze2.changeTileType([3, 4], 'wall');
-maze2.changeTileType([4, 4], 'wall');
-maze2.changeTileType([5, 4], 'wall');
-maze2.changeTileType([0, 9], 'wall');
-maze2.changeTileType([1, 9], 'wall');
-maze2.changeTileType([2, 9], 'wall');
-maze2.changeTileType([3, 9], 'wall');
-maze2.changeTileType([4, 9], 'wall');
-maze2.changeTileType([1, 12], 'wall');
-maze2.changeTileType([1, 13], 'wall');
-// b.changeTileType([4, 4], 'started');
-// b.next_move(b.start);
-// let nextPosCode = b.determineNextPosition()
-// b.next_move(nextPosCode);
-// b.printSolution();
+// let maze2 = new Board([6, 14]);
+// maze2.changeTileType([5, 0], 'start');
+// maze2.changeTileType([0, 13], 'end');
+// maze2.changeTileType([1, 4], 'wall');
+// maze2.changeTileType([2, 4], 'wall');
+// maze2.changeTileType([3, 4], 'wall');
+// maze2.changeTileType([4, 4], 'wall');
+// maze2.changeTileType([5, 4], 'wall');
+// maze2.changeTileType([0, 9], 'wall');
+// maze2.changeTileType([1, 9], 'wall');
+// maze2.changeTileType([2, 9], 'wall');
+// maze2.changeTileType([3, 9], 'wall');
+// maze2.changeTileType([4, 9], 'wall');
+// maze2.changeTileType([1, 12], 'wall');
+// maze2.changeTileType([1, 13], 'wall');
+// // b.changeTileType([4, 4], 'started');
+// // b.next_move(b.start);
+// // let nextPosCode = b.determineNextPosition()
+// // b.next_move(nextPosCode);
+// // b.printSolution();
 
-try {
-  maze2.run();
-} catch (error) {
-  console.log(error);
-}
-console.log('Done');
+// try {
+//   maze1.run();
+// } catch (error) {
+//   console.log(error);
+// }
+// console.log('Done');
