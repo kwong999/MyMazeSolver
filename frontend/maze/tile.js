@@ -5,7 +5,7 @@ const TYPE =[
   'end'
 ]
 class Tile {
-  constructor(pos, parent) {
+  constructor(pos, parent = false) {
     this.pos = pos;
     // possible type: 
     this.type = 'blank';
