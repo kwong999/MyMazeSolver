@@ -4,13 +4,15 @@ import Tile from './tile';
 class Board extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {}
+    this.state = {
+      state: 'state'
+    };
     this.handleTileClick = this.handleTileClick.bind(this);
   }
   
   handleTileClick(tile) {
+    console.log('clicked');
     return (e) => {
-      console.log('clicked');
       this.updateTileType(tile.pos);
     }
   }
@@ -18,11 +20,10 @@ class Board extends React.Component {
   updateTileType(pos) {
     const { maze } = this.props;
     maze.changeTileType(pos, this.props.tileType);
-    this.setState({state: this.state});
+    this.setState({state: 'state'});
   }
 
   renderBoard() {
-    console.log('renderBoard');
     const { maze } = this.props;
     return maze.board.map( (row, idx) => (
       <li className='row' key={`row-${idx}`}>
@@ -44,8 +45,6 @@ class Board extends React.Component {
   }
 
   render() {
-    console.log(this.constructor.name);
-    console.log(this.props.maze);
     return(
       <>
         <h1>Board</h1>

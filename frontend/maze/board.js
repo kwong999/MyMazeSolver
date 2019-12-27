@@ -35,8 +35,11 @@ class Board {
   }
 
   validPosition([x, y]) {
-    if (!this.inRange(x, 0, this.dimension[0] - 1) || !this.inRange(y, 0, this.dimension[1] - 1)) return false;
-    return (this.board[x][y].type !== 'wall');
+    return (this.inRange(x, 0, this.dimension[0] - 1) && this.inRange(y, 0, this.dimension[1] - 1));
+  }
+
+  isWall([x,y]) {
+    return (this.board[x][y].type === 'wall');
   }
 
   posToCode(pos) {
@@ -61,7 +64,7 @@ class Board {
         this.end = this.posToCode(pos);
         break;
     }
-    const prevType = tile.type
+    const prevType = tile.type;
     if (!tile.changeType(type)) return false;
     switch (prevType) {
       case 'start':
@@ -89,6 +92,8 @@ class Board {
         console.log('No Solution');
       }
     }
+    const endPos = this.codeToPos(this.end);
+    this.board[endPos[0]][endPos[1]].changeType('end');
     console.log('Print Solution: ');
     this.printSolution();
   }
@@ -99,7 +104,8 @@ class Board {
     this.usedMove.push(currentPosCode);
     for (let [x, y] of DIRECTIONS) {
       const potentialPos = [currentX + x, currentY + y]
-      if (!this.validPosition([currentX + x, currentY + y])) continue;
+      if (!this.validPosition(potentialPos)) continue;
+      if (this.isWall(potentialPos)) continue;
       if (this.start === this.posToCode(potentialPos)) continue;
       const potentialTile = new Tile(potentialPos, this.board[currentX][currentY]);
       potentialTile.g = this.GScore([x, y], potentialTile); // update GScore
@@ -159,11 +165,13 @@ class Board {
 module.exports = Board;
 
 //test start
-// let maze1 = new Board([3, 3]);
-// maze1.changeTileType([0, 0], 'start');
+let maze1 = new Board([3, 3]);
+maze1.changeTileType([0, 0], 'start');
+maze1.changeTileType([0, 2], 'end');
+maze1.changeTileType([0, 2], 'blank');
 // maze1.changeTileType([0, 1], 'wall');
 // maze1.changeTileType([1, 1], 'wall');
-// maze1.changeTileType([0, 2], 'end');
+// maze1.changeTileType([1, 1], 'blank');
 
 // let maze2 = new Board([6, 14]);
 // maze2.changeTileType([5, 0], 'start');
