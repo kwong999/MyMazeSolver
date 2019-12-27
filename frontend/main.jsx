@@ -1,5 +1,5 @@
 import React from 'react';
-import Maze from './maze/board'
+import Maze from './maze/board';
 import Board from './board';
 import Controller from './controller';
 
@@ -14,18 +14,24 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maze: new Maze([3, 3]),
-      tileType: 'wall'
+      maze: new Maze([4, 4]),
+      tileType: 'wall',
+      disableUpdateTileType: false,
+      solverStep: 'start'
     }
-    this.state.maze.changeTileType([0,0], 'start');
-    this.state.maze.changeTileType([2,2], 'end');
-
     this.solve = this.solve.bind(this);
+    this.changeTileType = this.changeTileType.bind(this);
+    this.renderParent = this.renderParent.bind(this);
   }
 
+  // methods pass to Controller START
   solve() {
-    this.state.maze.run();
-    this.setState({state: 'state'});
+    this.setState( {disableUpdateTileType: true}, () => {
+      if (typeof this.state.maze.start !== 'number') return alert('Missing Starting Point!');
+      if (typeof this.state.maze.end !== 'number') return alert('Missing Ending Point!');
+      this.state.maze.run(this.state.solverStep);
+      this.setState({ solverStep: 2, disableUpdateTileType: false });
+    })
   }
 
   changeTileType(type) {
@@ -38,23 +44,30 @@ class Main extends React.Component {
     }
   }
 
+  renderParent() {
+    this.setState({state: 'state'});
+  }
+  // methods pass to Controller END
+
   render() {
     console.log(this.constructor.name);
     console.log(this.state);
     return(
       <>
         <nav className='nav-bar'>
-          Nav-bar
-          <Controller 
-            solve={this.solve}
+          <Controller
+            maze={this.state.maze}
             tileType={this.state.tileType}
-            changeTileType={this.changeTileType.bind(this)}
+            solve={this.solve}
+            changeTileType={this.changeTileType}
+            renderParent={this.renderParent}
           />
         </nav>
         <div className='maze'>
-          <Board 
+          <Board
             maze={this.state.maze}
             tileType={this.state.tileType}
+            disableUpdateTileType={this.state.disableUpdateTileType}
           />
         </div>
       </>

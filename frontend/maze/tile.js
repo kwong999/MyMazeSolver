@@ -10,6 +10,8 @@ class Tile {
     // possible type: 
     this.type = 'blank';
     this.parent = parent;
+    this.possibleMove = false;
+    this.usedMove = false;
     this.g = false;
     this.h = false;
     this.f = false;
@@ -23,6 +25,15 @@ class Tile {
       console.log('invalid type');
       return false;
     }
+  }
+
+  reset() {
+    this.parent = false;
+    this.possibleMove = false;
+    this.usedMove = false;
+    this.g = false;
+    this.h = false;
+    this.f = false;
   }
 }
 

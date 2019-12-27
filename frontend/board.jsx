@@ -11,7 +11,7 @@ class Board extends React.Component {
   }
   
   handleTileClick(tile) {
-    console.log('clicked');
+    console.log('handleTileClick');
     return (e) => {
       this.updateTileType(tile.pos);
     }
@@ -35,7 +35,7 @@ class Board extends React.Component {
   renderRow(row) {
     return row.map( tile => (
       <div 
-        className='tile'
+        className={`tile ${tile.type}${(tile.usedMove) ? ' used' : ''}${(tile.possibleMove) ? ' possible' : ''}`}
         onClick={this.handleTileClick(tile)}
         key={`tile-${tile.pos[0]}-${tile.pos[1]}`}
       >

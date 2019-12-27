@@ -7,7 +7,7 @@ const DIRECTIONS = [
 
 class Board {
   constructor(dimension) {
-    this.board = this.newBoard(dimension);
+    this.board = this.emptyBoard(dimension);
     this.dimension = dimension;
     this.start = false;
     this.end = false;
@@ -16,7 +16,7 @@ class Board {
     this.usedMove = []; // Array of posCode
   }
 
-  newBoard(dimension) {
+  emptyBoard(dimension) {
     let emptyBoard = new Array(dimension[0]);
     for (let i = 0; i < emptyBoard.length; i++) {
       emptyBoard[i] = new Array(dimension[1]);
@@ -50,6 +50,25 @@ class Board {
     return [Math.floor(posCode/this.dimension[1]), posCode%this.dimension[1]]
   }
 
+  fullReset() {
+    this.board = this.emptyBoard(this.dimension);
+    this.start = false;
+    this.end = false;
+  }
+
+  softReset() {
+    for (let x = 0; x < this.dimension[0]; x++) {
+      for (let y = 0; y < this.dimension[1]; y++) {
+        this.board[x][y].reset();
+      }
+    }
+  }
+
+  buildBoard(dimension) {
+    this.board = this.emptyBoard(dimension);
+    this.dimension = dimension;
+  }
+
   changeTileType(pos, type) {
     const [x, y] = pos;
     if (!this.validPosition(pos)) return false;
@@ -80,16 +99,15 @@ class Board {
   run() {
     this.possibleMove = [];
     this.usedMove = [];
-    this.next_move(this.start);
+    this.nextMove(this.start);
     let finish = false;
     while(!finish) {
       const currentPosCode = this.determineNextPosition();
-      this.next_move(currentPosCode);
-      finish = this.possibleMove.includes(this.end);
-      if (this.possibleMove.filter(move => !this.usedMove.includes(move)).length === 0) {
-        // no more possible move, still not reach the end
+      if (currentPosCode) {
+        this.nextMove(currentPosCode);
+        finish = this.finish();
+      } else {
         finish = true;
-        console.log('No Solution');
       }
     }
     const endPos = this.codeToPos(this.end);
@@ -98,16 +116,51 @@ class Board {
     this.printSolution();
   }
 
-  // return an array with all possible move
-  next_move(currentPosCode) {
+  runMove(step) {
+    switch(step) {
+      case 'start':
+        this.possibleMove = [];
+        this.usedMove = [];
+        this.nextMove(this.start);
+      default:
+        const currentPosCode = this.determineNextPosition();
+        if (currentPosCode) {
+          this.nextMove(currentPosCode);
+        } else {
+          return true
+        }
+    }
+    return true;
+  }
+
+  finish() {
+    if (this.possibleMove.includes(this.end)) return true;
+    return (this.possibleMove.filter(move => !this.usedMove.includes(move)).length === 0) 
+  }
+
+  printSolution() {
+    const [x, y] = this.codeToPos(this.end);
+    let endTile = this.board[x][y];
+    if (!endTile.parent) return console.log('No Solution');
+    console.log(endTile.pos);
+    while (!!endTile.parent) {
+      endTile = endTile.parent;
+      console.log(endTile.pos);
+    }
+  }
+
+  // step logic
+  nextMove(currentPosCode) {
     const [currentX, currentY] = this.codeToPos(currentPosCode);
     this.usedMove.push(currentPosCode);
+    this.board[currentX][currentY].usedMove = true;
     for (let [x, y] of DIRECTIONS) {
       const potentialPos = [currentX + x, currentY + y]
       if (!this.validPosition(potentialPos)) continue;
       if (this.isWall(potentialPos)) continue;
       if (this.start === this.posToCode(potentialPos)) continue;
       const potentialTile = new Tile(potentialPos, this.board[currentX][currentY]);
+      potentialTile.possibleMove = true;
       potentialTile.g = this.GScore([x, y], potentialTile); // update GScore
       potentialTile.h = this.HScore(this.codeToPos(this.end), potentialTile); // update HScore
       potentialTile.f = potentialTile.g + potentialTile.h; // update FScore
@@ -118,6 +171,7 @@ class Board {
   }
 
   determineNextPosition() {
+    if (this.possibleMove.length === 0) return false;
     let possibleMove = this.possibleMove
       .filter(posCode => !this.usedMove.includes(posCode));
     let possibleMoveFScore = possibleMove 
@@ -150,25 +204,15 @@ class Board {
     const y_movement = Math.abs(y - potentialTile.pos[1])
     return Math.min(x_movement, y_movement) * 14 + Math.abs(x_movement - y_movement) * 10;
   }
-
-  printSolution(){
-    const [x, y] = this.codeToPos(this.end);
-    let endTile = this.board[x][y];
-    console.log(endTile.pos);
-    while (!!endTile.parent) {
-      endTile = endTile.parent;
-      console.log(endTile.pos);
-    }
-  }
 }
 
 module.exports = Board;
 
 //test start
-let maze1 = new Board([3, 3]);
-maze1.changeTileType([0, 0], 'start');
-maze1.changeTileType([0, 2], 'end');
-maze1.changeTileType([0, 2], 'blank');
+// let maze1 = new Board([3, 3]);
+// maze1.changeTileType([0, 0], 'start');
+// maze1.changeTileType([0, 2], 'end');
+// maze1.changeTileType([0, 2], 'blank');
 // maze1.changeTileType([0, 1], 'wall');
 // maze1.changeTileType([1, 1], 'wall');
 // maze1.changeTileType([1, 1], 'blank');
@@ -188,14 +232,15 @@ maze1.changeTileType([0, 2], 'blank');
 // maze2.changeTileType([4, 9], 'wall');
 // maze2.changeTileType([1, 12], 'wall');
 // maze2.changeTileType([1, 13], 'wall');
-// // b.changeTileType([4, 4], 'started');
-// // b.next_move(b.start);
-// // let nextPosCode = b.determineNextPosition()
-// // b.next_move(nextPosCode);
-// // b.printSolution();
+
+// b.changeTileType([4, 4], 'started');
+// b.next_move(b.start);
+// let nextPosCode = b.determineNextPosition()
+// b.next_move(nextPosCode);
+// b.printSolution();
 
 // try {
-//   maze1.run();
+//   maze2.run();
 // } catch (error) {
 //   console.log(error);
 // }

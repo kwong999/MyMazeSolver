@@ -1,4 +1,4 @@
-html, body, header, nav, h1, 
+html, body, header, nav, h1, h2,
 p, ul, li, div, form, label, 
 input, span {
   margin: 0;
@@ -20,6 +20,27 @@ ul {
   width: min-content;
 }
 
+.nav-bar span{
+  font-weight: bold;
+}
+
+.build-board label{
+  display: flex;
+  flex-direction: row;
+}
+
+.build-board p {
+  margin-right: 5px;
+}
+
+.build-board label p{
+  width: 55px;
+}
+
+.build-board input{
+  width: 50px;
+}
+
 .row {
   display: flex;
   flex-direction: row;
@@ -29,4 +50,16 @@ ul {
   width: 50px;
   height: 50px;
   outline: red 1px solid;
+}
+
+.possible {
+  background: yellow;
+}
+
+.used {
+  background: darkorange;
+}
+
+.wall {
+  background: gray;
 }
