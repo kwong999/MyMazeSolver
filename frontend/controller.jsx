@@ -67,22 +67,27 @@ class Controller extends React.Component {
     const { solve, tileType, changeTileType } = this.props;
     const currentTileType = this.capitalize(tileType)
     return(
-      <>
+      <div className='controller'>
+        <h2>Controller Panel</h2>
         <form className='build-board'>
           <p>Dimension:</p>
           <label>
-            <p>Row</p>
+            <p>Row:</p>
             <input
               type='number'
               value={this.state.dimensionRow}
+              min= '1'
+              max= '20'
               onChange={this.handleChange('dimensionRow')}
             />
           </label>
           <label>
-            <p>Column </p>
+            <p>Column:</p>
             <input
               type='number'
               value={this.state.dimensionCol}
+              min='1'
+              max='20'
               onChange={this.handleChange('dimensionCol')}
             />
           </label>
@@ -93,7 +98,7 @@ class Controller extends React.Component {
         <button onClick={this.softReset}>Soft Reset</button>
         <p>Current Tile Type: <span>{currentTileType}</span></p>
         {this.optionList()}
-      </>
+      </div>
     )
   }
 }

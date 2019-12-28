@@ -47,8 +47,7 @@ class Board extends React.Component {
   render() {
     return(
       <>
-        <h1>Board</h1>
-        <ul className='Board'>
+        <ul className='board'>
           {this.renderBoard()}
         </ul>
       </>
