@@ -1,4 +1,5 @@
 const Tile = require('./tile.js');
+const AStar = require('./solver/a_star');
 
 const DIRECTIONS = [
   [1, 0], [-1, 0], [-1, 1], [1, 1],
@@ -54,6 +55,8 @@ class Board {
     this.board = this.emptyBoard(this.dimension);
     this.start = false;
     this.end = false;
+    this.possibleMove = [];
+    this.usedMove = [];
   }
 
   softReset() {
@@ -62,11 +65,17 @@ class Board {
         this.board[x][y].reset();
       }
     }
+    this.possibleMove = []; // Array of posCode
+    this.usedMove = [];
   }
 
   buildBoard(dimension) {
     this.board = this.emptyBoard(dimension);
     this.dimension = dimension;
+    this.start = false;
+    this.end = false;
+    this.possibleMove = [];
+    this.usedMove = [];
   }
 
   changeTileType(pos, type) {
@@ -96,15 +105,13 @@ class Board {
     return true;
   }
 
-  run() {
-    this.possibleMove = [];
-    this.usedMove = [];
-    this.nextMove(this.start);
+  solverFull() {
+    AStar.nextMove(this, this.start);
     let finish = false;
-    while(!finish) {
-      const currentPosCode = this.determineNextPosition();
-      if (currentPosCode) {
-        this.nextMove(currentPosCode);
+    while (!finish) {
+      const currentPosCode = AStar.determineNextPosition(this);
+      if (typeof currentPosCode === 'number') {
+        AStar.nextMove(this, currentPosCode);
         finish = this.finish();
       } else {
         finish = true;
@@ -116,21 +123,19 @@ class Board {
     this.printSolution();
   }
 
-  runMove(step) {
-    switch(step) {
+  solverStep(type) {
+    switch(type) {
       case 'start':
-        this.possibleMove = [];
-        this.usedMove = [];
-        this.nextMove(this.start);
+        AStar.nextMove(this, this.start);
+        break;
       default:
-        const currentPosCode = this.determineNextPosition();
+        const currentPosCode = AStar.determineNextPosition(this);
         if (currentPosCode) {
-          this.nextMove(currentPosCode);
-        } else {
-          return true
+          AStar.nextMove(this, currentPosCode);
         }
     }
-    return true;
+    const endPos = this.codeToPos(this.end);
+    this.board[endPos[0]][endPos[1]].changeType('end');
   }
 
   finish() {
@@ -148,74 +153,17 @@ class Board {
       console.log(endTile.pos);
     }
   }
-
-  // step logic
-  nextMove(currentPosCode) {
-    const [currentX, currentY] = this.codeToPos(currentPosCode);
-    this.usedMove.push(currentPosCode);
-    this.board[currentX][currentY].usedMove = true;
-    for (let [x, y] of DIRECTIONS) {
-      const potentialPos = [currentX + x, currentY + y]
-      if (!this.validPosition(potentialPos)) continue;
-      if (this.isWall(potentialPos)) continue;
-      if (this.start === this.posToCode(potentialPos)) continue;
-      const potentialTile = new Tile(potentialPos, this.board[currentX][currentY]);
-      potentialTile.possibleMove = true;
-      potentialTile.g = this.GScore([x, y], potentialTile); // update GScore
-      potentialTile.h = this.HScore(this.codeToPos(this.end), potentialTile); // update HScore
-      potentialTile.f = potentialTile.g + potentialTile.h; // update FScore
-      if (!!this.board[currentX + x][currentY + y].f && potentialTile.f > this.board[currentX + x][currentY + y].f) continue;
-      this.board[currentX + x][currentY + y] = potentialTile;
-      this.possibleMove.push(this.posToCode(potentialPos));
-    }
-  }
-
-  determineNextPosition() {
-    if (this.possibleMove.length === 0) return false;
-    let possibleMove = this.possibleMove
-      .filter(posCode => !this.usedMove.includes(posCode));
-    let possibleMoveFScore = possibleMove 
-      .map( posCode => {
-        const [x, y] = this.codeToPos(posCode);
-        return this.board[x][y].f
-      })
-    let nextPosCode = possibleMove[0];
-    let FScorePointer = possibleMoveFScore[0];
-    for (let idx in possibleMoveFScore) {
-      if (possibleMoveFScore[idx] < FScorePointer) {
-        FScorePointer = possibleMoveFScore[idx];
-        nextPosCode = possibleMove[idx];
-      }
-    }
-    return nextPosCode;
-  }
-
-  GScore([x, y], potentialTile) {
-    const parentGScoce = (potentialTile.parent.g) ? potentialTile.parent.g : 0;
-    if (Math.abs(x + y) === 2 || x + y === 0) {
-      return 14 + parentGScoce;
-    } else {
-      return 10 + parentGScoce;
-    }
-  }
-
-  HScore([x, y], potentialTile) {
-    const x_movement = Math.abs(x - potentialTile.pos[0])
-    const y_movement = Math.abs(y - potentialTile.pos[1])
-    return Math.min(x_movement, y_movement) * 14 + Math.abs(x_movement - y_movement) * 10;
-  }
 }
 
 module.exports = Board;
 
 //test start
-// let maze1 = new Board([3, 3]);
-// maze1.changeTileType([0, 0], 'start');
-// maze1.changeTileType([0, 2], 'end');
-// maze1.changeTileType([0, 2], 'blank');
+// let maze1 = new Board([4, 4]);
+// maze1.changeTileType([1, 0], 'start');
+// maze1.changeTileType([1, 3], 'end');
 // maze1.changeTileType([0, 1], 'wall');
 // maze1.changeTileType([1, 1], 'wall');
-// maze1.changeTileType([1, 1], 'blank');
+// maze1.changeTileType([2, 1], 'wall');
 
 // let maze2 = new Board([6, 14]);
 // maze2.changeTileType([5, 0], 'start');
@@ -240,7 +188,7 @@ module.exports = Board;
 // b.printSolution();
 
 // try {
-//   maze2.run();
+//   maze1.solverFull();
 // } catch (error) {
 //   console.log(error);
 // }

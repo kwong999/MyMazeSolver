@@ -16,21 +16,20 @@ class Main extends React.Component {
     this.state = {
       maze: new Maze([4, 4]),
       tileType: 'wall',
-      disableUpdateTileType: false,
-      solverStep: 'start'
+      disableUpdateTileType: false
     }
-    this.solve = this.solve.bind(this);
+    this.solverFull = this.solverFull.bind(this);
     this.changeTileType = this.changeTileType.bind(this);
     this.renderParent = this.renderParent.bind(this);
   }
 
   // methods pass to Controller START
-  solve() {
-    this.setState( {disableUpdateTileType: true}, () => {
+  solverFull() {
+    this.setState({ disableUpdateTileType: true }, () => {
       if (typeof this.state.maze.start !== 'number') return alert('Missing Starting Point!');
       if (typeof this.state.maze.end !== 'number') return alert('Missing Ending Point!');
-      this.state.maze.run(this.state.solverStep);
-      this.setState({ solverStep: 2, disableUpdateTileType: false });
+      this.state.maze.solverFull();
+      this.setState({ disableUpdateTileType: false });
     })
   }
 
@@ -58,7 +57,8 @@ class Main extends React.Component {
           <Controller
             maze={this.state.maze}
             tileType={this.state.tileType}
-            solve={this.solve}
+            solverFull={this.solverFull}
+            solverStep={this.solverStep}
             changeTileType={this.changeTileType}
             renderParent={this.renderParent}
           />

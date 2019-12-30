@@ -69,7 +69,7 @@ class Controller extends React.Component {
   render() {
     console.log(this.constructor.name);
     console.log(this.state);
-    const { solve, tileType, changeTileType } = this.props;
+    const { solverFull, tileType, changeTileType } = this.props;
     const currentTileType = this.capitalize(tileType)
     return(
       <div className='controller'>
@@ -98,7 +98,7 @@ class Controller extends React.Component {
           </label>
           <button type='submit' onClick={this.handleBuildBoard}>Build Board</button>
         </form>
-        <button onClick={solve}>Solve</button>
+        <button onClick={solverFull}>Solve Full</button>
         <button onClick={this.fullReset}>Full Reset</button>
         <button onClick={this.softReset}>Soft Reset</button>
         <p>Current Tile Type: <span>{currentTileType}</span></p>
