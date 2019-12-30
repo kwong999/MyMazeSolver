@@ -46,9 +46,15 @@ h2 {
   font-weight: bold;
 }
 
-.build-board label{
+.build-board {
+  margin-bottom: 5px;
+}
+
+.build-board label {
   display: flex;
   flex-direction: row;
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 .build-board p {
@@ -61,7 +67,20 @@ h2 {
 
 .build-board input{
   width: 50px;
+  border-bottom: 1px black solid;
 }
+
+.controller > button > div {
+  display: flex;
+  flex-direction: row;
+}
+
+.controller > button > div > div{
+  width: 14px;
+  margin-left: 2px;
+  border: lightgray 1px solid;
+}
+
 /* nav-bar END */
 
 .middleline {
@@ -97,4 +116,12 @@ h2 {
 
 .wall {
   background: gray;
+}
+
+.start {
+  background: lightgreen;
+}
+
+.end {
+  background: lightpink;
 }

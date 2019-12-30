@@ -52,7 +52,12 @@ class Controller extends React.Component {
   optionList() {
     return(
       TYPE.map(option => (
-        <button onClick={this.props.changeTileType(option)} key={option}>{this.capitalize(option)}</button>
+        <button onClick={this.props.changeTileType(option)} key={option}>
+          <div>
+            <p>{this.capitalize(option)}</p>
+            <div className={option}></div>
+          </div>
+        </button>
       ))
     )
   }
@@ -70,7 +75,7 @@ class Controller extends React.Component {
       <div className='controller'>
         <h2>Controller Panel</h2>
         <form className='build-board'>
-          <p>Dimension:</p>
+          <p>Dimension</p>
           <label>
             <p>Row:</p>
             <input
