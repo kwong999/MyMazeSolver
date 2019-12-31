@@ -113,6 +113,11 @@ class Controller extends React.Component {
           <button onClick={solverFull}>Solve Full</button>
           <button onClick={this.fullReset}>Full Reset</button>
           <button onClick={this.softReset}>Soft Reset</button>
+          <label>
+            <p>Label:</p> 
+            <div><div className='solution'></div><p>: Solution path</p></div>
+            <div><div className='used'></div><p>: Searched Tile</p></div>
+          </label>
         </div>
       </div>
     )
