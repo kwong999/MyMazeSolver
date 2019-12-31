@@ -13,7 +13,11 @@ class Board extends React.Component {
   handleTileClick(tile) {
     console.log('handleTileClick');
     return (e) => {
-      this.updateTileType(tile.pos);
+      if (!this.props.mazeSolved) {
+        this.updateTileType(tile.pos);
+      } else {
+        alert('Please reset solver to make changes.');
+      }
     }
   }
 

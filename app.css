@@ -89,6 +89,18 @@ h2 {
   margin: 2px 0;
 }
 
+.tile-option > div {
+  display: flex;
+  flex-direction: row;
+}
+
+.tile-option > div > div {
+  width: 16px;
+  height: 16px;
+  margin: auto 5px;
+  border: lightgray 1px solid;
+}
+
 .tile-option > button > div {
   display: flex;
   flex-direction: row;

@@ -45,14 +45,14 @@ class Controller extends React.Component {
     console.log('fullReset');
     e.preventDefault();
     this.props.maze.fullReset();
-    this.props.renderParent();
+    this.props.resetSolverState();
   }
 
   softReset(e) {
     console.log('softReset');
     e.preventDefault();
     this.props.maze.softReset();
-    this.props.renderParent();
+    this.props.resetSolverState();
   }
 
   optionList() {
@@ -105,18 +105,27 @@ class Controller extends React.Component {
           <button type='submit' onClick={this.handleBuildBoard}>Build Board</button>
         </form>
         <div className='tile-option'>
-          <p>Current Tile Type: <span>{currentTileType}</span></p>
+          <div>
+            <p>Current Tile Type: <span>{currentTileType}</span></p>
+            <div className={tileType}></div>
+          </div>
           {this.optionList()}
           <p>Left click to update tile.</p>
         </div>
         <div className='maze-action'>
-          <button onClick={solverFull}>Solve Full</button>
+          <button onClick={solverFull}>Solve It!</button>
           <button onClick={this.fullReset}>Full Reset</button>
           <button onClick={this.softReset}>Soft Reset</button>
           <label>
             <p>Label:</p> 
-            <div><div className='solution'></div><p>: Solution path</p></div>
-            <div><div className='used'></div><p>: Searched Tile</p></div>
+            <div>
+              <div className='solution'></div>
+              <p>: Solution path</p>
+            </div>
+            <div>
+              <div className='used'></div>
+              <p>: Searched Tile</p>
+            </div>
           </label>
         </div>
       </div>

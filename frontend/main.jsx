@@ -16,21 +16,26 @@ class Main extends React.Component {
     this.state = {
       maze: new Maze([9, 9]),
       tileType: 'wall',
-      disableUpdateTileType: false
+      mazeSolved: false
     }
     this.solverFull = this.solverFull.bind(this);
     this.changeTileType = this.changeTileType.bind(this);
+    this.resetSolverState = this.resetSolverState.bind(this);
     this.renderParent = this.renderParent.bind(this);
   }
 
   // methods pass to Controller START
   solverFull() {
-    this.setState({ disableUpdateTileType: true }, () => {
-      if (typeof this.state.maze.start !== 'number') return alert('Missing Starting Point!');
-      if (typeof this.state.maze.end !== 'number') return alert('Missing Ending Point!');
-      this.state.maze.solverFull();
-      this.setState({ disableUpdateTileType: false });
-    })
+    if (!this.state.mazeSolved) {
+      this.setState({ disableUpdateTileType: true, mazeSolved: true }, () => {
+        if (typeof this.state.maze.start !== 'number') return alert('Missing Starting Point!');
+        if (typeof this.state.maze.end !== 'number') return alert('Missing Ending Point!');
+        this.state.maze.solverFull();
+        this.setState({ mazeSolved: true });
+      })
+    } else {
+      alert('Maze already solved!');
+    }
   }
 
   changeTileType(type) {
@@ -41,6 +46,10 @@ class Main extends React.Component {
         console.log('invalid type');
       }
     }
+  }
+  
+  resetSolverState() {
+    this.setState({mazeSolved: false})
   }
 
   renderParent() {
@@ -60,6 +69,7 @@ class Main extends React.Component {
             solverFull={this.solverFull}
             solverStep={this.solverStep}
             changeTileType={this.changeTileType}
+            resetSolverState={this.resetSolverState}
             renderParent={this.renderParent}
           />
         </nav>
@@ -69,6 +79,7 @@ class Main extends React.Component {
             maze={this.state.maze}
             tileType={this.state.tileType}
             disableUpdateTileType={this.state.disableUpdateTileType}
+            mazeSolved={this.state.mazeSolved}
           />
         </div>
       </>
