@@ -12,6 +12,7 @@ class Tile {
     this.parent = parent;
     this.possibleMove = false;
     this.usedMove = false;
+    this.solution = false;
     this.g = false;
     this.h = false;
     this.f = false;
@@ -31,6 +32,7 @@ class Tile {
     this.parent = false;
     this.possibleMove = false;
     this.usedMove = false;
+    this.solution = false;
     this.g = false;
     this.h = false;
     this.f = false;

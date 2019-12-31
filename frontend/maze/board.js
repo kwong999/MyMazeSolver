@@ -119,8 +119,7 @@ class Board {
     }
     const endPos = this.codeToPos(this.end);
     this.board[endPos[0]][endPos[1]].changeType('end');
-    console.log('Print Solution: ');
-    this.printSolution();
+    this.setSolution();
   }
 
   solverStep(type) {
@@ -151,6 +150,18 @@ class Board {
     while (!!endTile.parent) {
       endTile = endTile.parent;
       console.log(endTile.pos);
+    }
+  }
+
+  setSolution() {
+    const [x, y] = this.codeToPos(this.end);
+    let endTile = this.board[x][y];
+    if (!endTile.parent) return null;
+    while (!!endTile.parent) {
+      endTile = endTile.parent;
+      if (endTile.type !== 'start') {
+        endTile.solution = true;
+      }
     }
   }
 }
