@@ -14,7 +14,7 @@ class Main extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      maze: new Maze([4, 4]),
+      maze: new Maze([9, 9]),
       tileType: 'wall',
       disableUpdateTileType: false
     }

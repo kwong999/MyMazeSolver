@@ -25,11 +25,11 @@ header {
   background-image: linear-gradient(to right, lightblue , lightgreen);
   font-size: 36px;
   font-weight: bold;
+  padding: 5px 0;
 }
 h1 {
   width: fit-content;
   margin: auto;
-  
 }
 /* header END */
 
@@ -38,16 +38,33 @@ h2 {
   font-size: 24px;
 }
 
+.nav-bar {
+  margin: 10px 0;
+}
+
 .controller {
   width: max-content;
   margin: auto;
+  font-size: 24px;
 }
-.nav-bar span{
+
+.controller button {
+  font-size: 16px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+.controller button:hover {
+  background: black;
+  color: white;
+}
+
+.nav-bar span {
   font-weight: bold;
 }
 
-.build-board {
-  margin-bottom: 5px;
+.controller > * {
+  margin: 5px 0;
 }
 
 .build-board label {
@@ -62,7 +79,7 @@ h2 {
 }
 
 .build-board label p{
-  width: 55px;
+  width: 85px;
 }
 
 .build-board input{
@@ -70,14 +87,16 @@ h2 {
   border-bottom: 1px black solid;
 }
 
-.controller > button > div {
+.controller > .tile-option > button > div {
   display: flex;
   flex-direction: row;
 }
 
-.controller > button > div > div{
+.controller > .tile-option > button > div > div {
   width: 14px;
   margin-left: 2px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   border: lightgray 1px solid;
 }
 
@@ -88,6 +107,10 @@ h2 {
   border: black 1px solid;
 }
 /* maze START */
+.maze {
+  margin: 10px 0;
+}
+
 .board {
   margin: auto;
   border: lightgray 1px solid;
@@ -106,16 +129,20 @@ h2 {
   cursor: pointer;
 }
 
+.blank { 
+  background: white;
+}
+
+.wall {
+  background: gray;
+}
+
 .possible {
   background: yellow;
 }
 
 .used {
   background: darkorange;
-}
-
-.wall {
-  background: gray;
 }
 
 .start {

@@ -25,7 +25,13 @@ class Controller extends React.Component {
   handleChange(type) {
     return e => {
       e.preventDefault();
-      this.setState({ [type]: parseInt(e.target.value) });
+      let val = e.target.value;
+      if (val > 20) {
+        val = 20;
+      } else if(val < 1) {
+        val = 1
+      }
+      this.setState({ [type]: parseInt(val) });
     }
   }
 
@@ -98,11 +104,16 @@ class Controller extends React.Component {
           </label>
           <button type='submit' onClick={this.handleBuildBoard}>Build Board</button>
         </form>
-        <button onClick={solverFull}>Solve Full</button>
-        <button onClick={this.fullReset}>Full Reset</button>
-        <button onClick={this.softReset}>Soft Reset</button>
-        <p>Current Tile Type: <span>{currentTileType}</span></p>
-        {this.optionList()}
+        <div className='tile-option'>
+          <p>Current Tile Type: <span>{currentTileType}</span></p>
+          {this.optionList()}
+          <p>Left click to update tile.</p>
+        </div>
+        <div className='maze-action'>
+          <button onClick={solverFull}>Solve Full</button>
+          <button onClick={this.fullReset}>Full Reset</button>
+          <button onClick={this.softReset}>Soft Reset</button>
+        </div>
       </div>
     )
   }
