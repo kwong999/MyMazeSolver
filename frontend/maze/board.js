@@ -100,13 +100,13 @@ class Board {
     return true;
   }
 
-  solverFull() {
-    AStar.nextMove(this, this.start);
+  solverFull(movement) {
+    AStar.nextMove(this, this.start, movement);
     let finish = false;
     while (!finish) {
       const currentPosCode = AStar.determineNextPosition(this);
       if (typeof currentPosCode === 'number') {
-        AStar.nextMove(this, currentPosCode);
+        AStar.nextMove(this, currentPosCode, movement);
         finish = this.finish();
       } else {
         finish = true;

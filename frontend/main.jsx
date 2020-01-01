@@ -25,12 +25,12 @@ class Main extends React.Component {
   }
 
   // methods pass to Controller START
-  solverFull() {
+  solverFull(movement) {
     if (!this.state.mazeSolved) {
       this.setState({ disableUpdateTileType: true, mazeSolved: true }, () => {
         if (typeof this.state.maze.start !== 'number') return alert('Missing Starting Point!');
         if (typeof this.state.maze.end !== 'number') return alert('Missing Ending Point!');
-        this.state.maze.solverFull();
+        this.state.maze.solverFull(movement);
         this.setState({ mazeSolved: true });
       })
     } else {

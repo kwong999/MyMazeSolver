@@ -11,11 +11,12 @@ const DIRECTIONS_NO_DIAGONAL = [
 ]
 
 const AStar  = {
-  nextMove(currentBoard, currentPosCode) {
+  nextMove(currentBoard, currentPosCode, movement) {
     const [currentX, currentY] = currentBoard.codeToPos(currentPosCode);
     currentBoard.usedMove.push(currentPosCode);
     currentBoard.board[currentX][currentY].usedMove = true;
-    for (let [x, y] of DIRECTIONS) {
+    const directions = (movement === 'All Direction') ? DIRECTIONS : DIRECTIONS_NO_DIAGONAL;
+    for (let [x, y] of directions) {
       const potentialPos = [currentX + x, currentY + y]
       if (!currentBoard.validPosition(potentialPos)) continue;
       if (currentBoard.isWall(potentialPos)) continue;

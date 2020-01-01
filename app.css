@@ -1,5 +1,5 @@
 html, body, header, nav, h1, h2,
-p, ul, li, div, form, label, 
+p, ul, li, div, form, label, dl, dt, dd,
 input, span {
   margin: 0;
   padding: 0;
@@ -62,7 +62,7 @@ h2 {
 }
 
 .controller button:hover {
-  background: black;
+  background: rgba(0, 0, 0, 0.75);
   color: white;
 }
 
@@ -133,19 +133,30 @@ h2 {
   margin: 2px 0;
 }
 
-.maze-action label > * {
-  margin: 2px 0;
-}
-.maze-action label > div {
+.maze-action div {
   display: flex;
   flex-direction: row;
 }
 
-.maze-action label > div > div {
-  margin: auto 0;
+.maze-action div > button {
+  margin: 2px 5px;
+  background: rgb(238, 144, 144);
+}
+
+.maze-action .all-direction {
+  background: lightgreen;
+}
+
+.maze-action dt {
+  float: left;
+  margin: 2.5px 0;
   width: 20px;
   height: 20px;
   border: lightgray 1px solid;
+}
+
+.maze-action dd {
+  margin: auto 0;
 }
 /* nav-bar END */
 

@@ -14,12 +14,14 @@ class Controller extends React.Component {
       tileType: this.props.tileType,
       dimensionRow: this.props.maze.dimension[0],
       dimensionCol: this.props.maze.dimension[1],
+      movement: 'All Direction',
       state: 'state'
     }
     this.handleChange = this.handleChange.bind(this);
     this.fullReset = this.fullReset.bind(this);
     this.softReset = this.softReset.bind(this);
     this.handleBuildBoard = this.handleBuildBoard.bind(this);
+    this.changeMovement = this.changeMovement.bind(this);
   }
 
   handleChange(type) {
@@ -39,6 +41,12 @@ class Controller extends React.Component {
     e.preventDefault();
     this.props.maze.buildBoard([this.state.dimensionRow, this.state.dimensionCol]);
     this.props.renderParent();
+  }
+
+  changeMovement(e) {
+    e.preventDefault();
+    const newMovement = (this.state.movement === 'All Direction') ? 'No Diagonal' : 'All Direction';
+    this.setState({ movement: newMovement });
   }
 
   fullReset(e) {
@@ -115,19 +123,25 @@ class Controller extends React.Component {
           </div>
           <div className='controller-right'>
             <div className='maze-action'>
-              <button onClick={solverFull}>Solve It!</button>
+              <div>
+                <p>Movement: </p>
+                <button 
+                  className={`${(this.state.movement === 'All Direction') ? 'all-direction' : ''}`}
+                  onClick={this.changeMovement}>
+                  {this.state.movement}
+                </button>
+              </div>
+              <button onClick={() => solverFull(this.state.movement)}>Solve It!</button>
               <button onClick={this.fullReset}>Full Reset</button>
               <button onClick={this.softReset}>Soft Reset</button>
               <label>
-                <p>Label:</p> 
-                <div>
-                  <div className='solution'></div>
-                  <p>: Solution path</p>
-                </div>
-                <div>
-                  <div className='used'></div>
-                  <p>: Searched Tile</p>
-                </div>
+                <p>Label:</p>
+                <dl>
+                  <dt className='solution'></dt>
+                  <dd>: Solution path</dd>
+                  <dt className='used'></dt>
+                  <dd>: Searched Tile</dd>
+                </dl>
               </label>
             </div>
           </div>
