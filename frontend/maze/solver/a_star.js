@@ -2,7 +2,12 @@ const Tile = require('../tile');
 
 const DIRECTIONS = [
   [1, 0], [-1, 0], [-1, 1], [1, 1],
-  [0, 1], [0, -1], [1, -1], [-1, -1],
+  [0, 1], [0, -1], [1, -1], [-1, -1]
+]
+
+const DIRECTIONS_NO_DIAGONAL = [
+  [1, 0], [-1, 0],
+  [0, 1], [0, -1]
 ]
 
 const AStar  = {

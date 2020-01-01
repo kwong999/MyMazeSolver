@@ -20,6 +20,10 @@ ul {
   width: min-content;
 }
 
+body {
+  background: rgba(0, 0, 0, 0.219);
+}
+
 /* header START */
 header {
   background-image: linear-gradient(to right, lightblue , lightgreen);
@@ -36,10 +40,13 @@ h1 {
 /* nav-bar START */
 h2 {
   font-size: 24px;
+  text-align: center;
 }
 
 .nav-bar {
-  margin: 10px 0;
+  padding: 10px 0;
+  background: lightskyblue;
+  border-bottom: black 4px solid;
 }
 
 .controller {
@@ -63,21 +70,29 @@ h2 {
   font-weight: bold;
 }
 
-.controller > * {
-  margin: 5px 0;
+.controller-sub {
+  display: flex;
+  flex-direction: row;
+}
+
+.controller-left > *,
+.controller-right > * {
+  padding: 5px;
+  margin: 5px;
+  border: 1px rgb(0, 157, 255) solid;
+  border-radius: 10px;
 }
 
 .build-board > * {
   margin: 2px 0;
 }
 
-.build-board label {
-  display: flex;
-  flex-direction: row;
-}
-
-.build-board label p {
+.build-board dt {
+  float: left;
   width: 85px;
+}
+.build-board dd {
+  margin-left: 0;
 }
 
 .build-board input{
@@ -134,18 +149,16 @@ h2 {
 }
 /* nav-bar END */
 
-.middleline {
-  margin: 10px 0;
-  border: black 1px solid;
-}
 /* maze START */
 .maze {
-  margin: 10px 0;
+  padding: 10px;
 }
 
 .board {
   margin: auto;
   border: lightgray 1px solid;
+  max-width: 100%;
+  overflow-x: scroll;
 }
 
 .row {
@@ -155,7 +168,7 @@ h2 {
 
 .tile {
   box-sizing: border-box;
-  width: 50px;
+  min-width: 50px;
   height: 50px;
   border: lightgray 1px solid;
   cursor: pointer;
@@ -187,4 +200,13 @@ h2 {
 
 .end {
   background: lightpink;
+}
+/* maze END */
+
+/* CASE MAX-WIDTH < 600px */
+@media (max-width: 600px) {
+  .controller-sub {
+    display: flex;
+    flex-direction: column;
+  }
 }

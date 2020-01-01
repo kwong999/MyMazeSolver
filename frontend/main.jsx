@@ -73,7 +73,6 @@ class Main extends React.Component {
             renderParent={this.renderParent}
           />
         </nav>
-        <div className='middleline'/>
         <div className='maze'>
           <Board
             maze={this.state.maze}

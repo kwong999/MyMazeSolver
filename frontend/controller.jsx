@@ -80,53 +80,57 @@ class Controller extends React.Component {
     return(
       <div className='controller'>
         <h2>Controller Panel</h2>
-        <form className='build-board'>
-          <p>Dimension</p>
-          <label>
-            <p>Row:</p>
-            <input
-              type='number'
-              value={this.state.dimensionRow}
-              min= '1'
-              max= '20'
-              onChange={this.handleChange('dimensionRow')}
-            />
-          </label>
-          <label>
-            <p>Column:</p>
-            <input
-              type='number'
-              value={this.state.dimensionCol}
-              min='1'
-              max='20'
-              onChange={this.handleChange('dimensionCol')}
-            />
-          </label>
-          <button type='submit' onClick={this.handleBuildBoard}>Build Board</button>
-        </form>
-        <div className='tile-option'>
-          <div>
-            <p>Current Tile Type: <span>{currentTileType}</span></p>
-            <div className={tileType}></div>
+        <div className='controller-sub'>
+          <div className='controller-left'>
+            <form className='build-board'>
+              <p>Dimension</p>
+              <dl>
+                <dt>Row:</dt>
+                <dd><input
+                  type='number'
+                  value={this.state.dimensionRow}
+                  min='1'
+                  max='20'
+                  onChange={this.handleChange('dimensionRow')}
+                /></dd>
+                <dt>Column:</dt>
+                <dd><input
+                  type='number'
+                  value={this.state.dimensionCol}
+                  min='1'
+                  max='20'
+                  onChange={this.handleChange('dimensionCol')}
+                /></dd>
+              </dl>
+              <button type='submit' onClick={this.handleBuildBoard}>Build Board</button>
+            </form>
+            <div className='tile-option'>
+              <div>
+                <p>Current Tile Type: <span>{currentTileType}</span></p>
+                <div className={tileType}></div>
+              </div>
+              {this.optionList()}
+              <p>Left click to update tile.</p>
+            </div>
           </div>
-          {this.optionList()}
-          <p>Left click to update tile.</p>
-        </div>
-        <div className='maze-action'>
-          <button onClick={solverFull}>Solve It!</button>
-          <button onClick={this.fullReset}>Full Reset</button>
-          <button onClick={this.softReset}>Soft Reset</button>
-          <label>
-            <p>Label:</p> 
-            <div>
-              <div className='solution'></div>
-              <p>: Solution path</p>
+          <div className='controller-right'>
+            <div className='maze-action'>
+              <button onClick={solverFull}>Solve It!</button>
+              <button onClick={this.fullReset}>Full Reset</button>
+              <button onClick={this.softReset}>Soft Reset</button>
+              <label>
+                <p>Label:</p> 
+                <div>
+                  <div className='solution'></div>
+                  <p>: Solution path</p>
+                </div>
+                <div>
+                  <div className='used'></div>
+                  <p>: Searched Tile</p>
+                </div>
+              </label>
             </div>
-            <div>
-              <div className='used'></div>
-              <p>: Searched Tile</p>
-            </div>
-          </label>
+          </div>
         </div>
       </div>
     )

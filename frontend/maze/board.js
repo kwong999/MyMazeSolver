@@ -1,11 +1,6 @@
 const Tile = require('./tile.js');
 const AStar = require('./solver/a_star');
 
-const DIRECTIONS = [
-  [1, 0], [-1, 0], [-1, 1], [1, 1],
-  [0, 1], [0, -1], [1, -1], [-1, -1],
-]
-
 class Board {
   constructor(dimension) {
     this.board = this.emptyBoard(dimension);
