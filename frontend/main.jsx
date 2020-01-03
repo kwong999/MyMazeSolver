@@ -16,12 +16,13 @@ class Main extends React.Component {
     this.state = {
       maze: new Maze([9, 9]),
       tileType: 'wall',
-      mazeSolved: false
+      mazeSolved: false,
+      displaySearchedTile: true
     }
     this.solverFull = this.solverFull.bind(this);
     this.changeTileType = this.changeTileType.bind(this);
-    this.resetSolverState = this.resetSolverState.bind(this);
     this.renderParent = this.renderParent.bind(this);
+    this.setMainState = this.setMainState.bind(this);
   }
 
   // methods pass to Controller START
@@ -48,8 +49,9 @@ class Main extends React.Component {
     }
   }
   
-  resetSolverState() {
-    this.setState({mazeSolved: false})
+  setMainState(key, value) {
+    this.setState({ [key]: value })
+    console.log(this.state);
   }
 
   renderParent() {
@@ -66,10 +68,11 @@ class Main extends React.Component {
           <Controller
             maze={this.state.maze}
             tileType={this.state.tileType}
+            displaySearchedTile={this.state.displaySearchedTile}
             solverFull={this.solverFull}
             solverStep={this.solverStep}
             changeTileType={this.changeTileType}
-            resetSolverState={this.resetSolverState}
+            setMainState={this.setMainState}
             renderParent={this.renderParent}
           />
         </nav>
@@ -78,6 +81,7 @@ class Main extends React.Component {
             maze={this.state.maze}
             tileType={this.state.tileType}
             disableUpdateTileType={this.state.disableUpdateTileType}
+            displaySearchedTile={this.state.displaySearchedTile}
             mazeSolved={this.state.mazeSolved}
           />
         </div>

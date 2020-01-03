@@ -11,7 +11,6 @@ class Controller extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tileType: this.props.tileType,
       dimensionRow: this.props.maze.dimension[0],
       dimensionCol: this.props.maze.dimension[1],
       movement: 'All Direction',
@@ -22,6 +21,7 @@ class Controller extends React.Component {
     this.softReset = this.softReset.bind(this);
     this.handleBuildBoard = this.handleBuildBoard.bind(this);
     this.changeMovement = this.changeMovement.bind(this);
+    this.changeDisplaySearchedTile = this.changeDisplaySearchedTile.bind(this);
   }
 
   handleChange(type) {
@@ -49,18 +49,22 @@ class Controller extends React.Component {
     this.setState({ movement: newMovement });
   }
 
+  changeDisplaySearchedTile(e) {
+    this.props.setMainState('displaySearchedTile', e.target.checked);
+  }
+
   fullReset(e) {
     console.log('fullReset');
     e.preventDefault();
     this.props.maze.fullReset();
-    this.props.resetSolverState();
+    this.props.setMainState('mazeSolved', false);
   }
 
   softReset(e) {
     console.log('softReset');
     e.preventDefault();
     this.props.maze.softReset();
-    this.props.resetSolverState();
+    this.props.setMainState('mazeSolved', false);
   }
 
   optionList() {
@@ -130,6 +134,14 @@ class Controller extends React.Component {
                   onClick={this.changeMovement}>
                   {this.state.movement}
                 </button>
+              </div>
+              <div>
+                <p>Diaplay Searched Tile: </p>
+                <input 
+                  type='checkbox'
+                  checked={this.props.displaySearchedTile}
+                  onChange={this.changeDisplaySearchedTile}
+                />
               </div>
               <button onClick={() => solverFull(this.state.movement)}>Solve It!</button>
               <button onClick={this.fullReset}>Full Reset</button>
