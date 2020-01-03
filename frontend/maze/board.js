@@ -1,5 +1,6 @@
 const Tile = require('./tile.js');
 const AStar = require('./solver/a_star');
+const BFS = require('./solver/bfs');
 
 class Board {
   constructor(dimension) {

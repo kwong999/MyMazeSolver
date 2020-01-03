@@ -10,7 +10,7 @@ const DIRECTIONS_NO_DIAGONAL = [
   [0, 1], [0, -1]
 ]
 
-const AStar = {
+const BFS  = {
   nextMove(currentBoard, currentPosCode, movement) {
     const [currentX, currentY] = currentBoard.codeToPos(currentPosCode);
     currentBoard.usedMove.push(currentPosCode);
@@ -23,9 +23,7 @@ const AStar = {
       if (currentBoard.start === currentBoard.posToCode(potentialPos)) continue;
       const potentialTile = new Tile(potentialPos, currentBoard.board[currentX][currentY]);
       potentialTile.possibleMove = true;
-      potentialTile.g = this.GScore([x, y], potentialTile); // update GScore
-      potentialTile.h = this.HScore(currentBoard.codeToPos(currentBoard.end), potentialTile); // update HScore
-      potentialTile.f = potentialTile.g + potentialTile.h; // update FScore
+      potentialTile.f = this.FScore([x, y], potentialTile); // update FScore
       if (!!currentBoard.board[currentX + x][currentY + y].f && potentialTile.f > currentBoard.board[currentX + x][currentY + y].f) continue;
       currentBoard.board[currentX + x][currentY + y] = potentialTile;
       currentBoard.possibleMove.push(currentBoard.posToCode(potentialPos));
@@ -51,19 +49,14 @@ const AStar = {
     }
     return nextPosCode;
   },
-  GScore([x, y], potentialTile) {
-    const parentGScoce = (potentialTile.parent.g) ? potentialTile.parent.g : 0;
+  FScore([x, y], potentialTile) {
+    const parentFScoce = (potentialTile.parent.f) ? potentialTile.parent.f : 0;
     if (Math.abs(x + y) === 2 || x + y === 0) {
-      return 14 + parentGScoce;
+      return 14 + parentFScoce;
     } else {
-      return 10 + parentGScoce;
+      return 10 + parentFScoce;
     }
-  },
-  HScore([x, y], potentialTile) {
-    const x_movement = Math.abs(x - potentialTile.pos[0])
-    const y_movement = Math.abs(y - potentialTile.pos[1])
-    return Math.min(x_movement, y_movement) * 14 + Math.abs(x_movement - y_movement) * 10;
   }
 }
 
-module.exports = AStar;
+module.exports = BFS;
