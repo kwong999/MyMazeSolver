@@ -137,7 +137,8 @@ class Controller extends React.Component {
               </div>
               <div>
                 <p>Diaplay Searched Tile: </p>
-                <input 
+                <input
+                  className='checkbox'
                   type='checkbox'
                   checked={this.props.displaySearchedTile}
                   onChange={this.changeDisplaySearchedTile}
