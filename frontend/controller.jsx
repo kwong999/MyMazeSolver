@@ -7,6 +7,11 @@ const TYPE = [
   'end'
 ]
 
+const SOLVER = [
+  'A* Star',
+  'Breadth First Search'
+]
+
 class Controller extends React.Component {
   constructor(props) {
     super(props);
@@ -14,6 +19,7 @@ class Controller extends React.Component {
       dimensionRow: this.props.maze.dimension[0],
       dimensionCol: this.props.maze.dimension[1],
       movement: 'All Direction',
+      solver: 'Breadth First Search',
       state: 'state'
     }
     this.handleChange = this.handleChange.bind(this);
@@ -22,6 +28,7 @@ class Controller extends React.Component {
     this.handleBuildBoard = this.handleBuildBoard.bind(this);
     this.changeMovement = this.changeMovement.bind(this);
     this.changeDisplaySearchedTile = this.changeDisplaySearchedTile.bind(this);
+    this.changeSolver = this.changeSolver.bind(this);
   }
 
   handleChange(type) {
@@ -51,6 +58,10 @@ class Controller extends React.Component {
 
   changeDisplaySearchedTile(e) {
     this.props.setMainState('displaySearchedTile', e.target.checked);
+  }
+
+  changeSolver(e) {
+    this.setState({ solver: e.target.value })
   }
 
   fullReset(e) {
@@ -136,7 +147,7 @@ class Controller extends React.Component {
                 </button>
               </div>
               <div>
-                <p>Diaplay Searched Tile: </p>
+                <p>Display Searched Tile: </p>
                 <input
                   className='checkbox'
                   type='checkbox'
@@ -144,7 +155,15 @@ class Controller extends React.Component {
                   onChange={this.changeDisplaySearchedTile}
                 />
               </div>
-              <button onClick={() => solverFull(this.state.movement)}>Solve It!</button>
+              <div>
+                <p>Solver: </p>
+                <select value={this.state.solver} onChange={this.changeSolver}>
+                  {SOLVER.map( (solver, idx) => (
+                    <option value={solver} key={idx}>{solver}</option>
+                  ))}
+                </select>
+              </div>
+              <button onClick={() => solverFull(this.state.movement, this.state.solver)}>Solve It!</button>
               <button onClick={this.fullReset}>Full Reset</button>
               <button onClick={this.softReset}>Soft Reset</button>
               <label>

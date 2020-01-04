@@ -149,10 +149,16 @@ h2 {
 
 .maze-action .checkbox {
   cursor: pointer;
-  margin: 3.5px 1px;
+  margin: 3.5px 5px;
   height: 20px;
   width: 20px;
   background-color: lightgray;
+}
+
+.maze-action select {
+  cursor: pointer;
+  margin: 1px 5px;
+  height: 25px;
 }
 
 .maze-action dt {

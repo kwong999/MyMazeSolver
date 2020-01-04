@@ -101,13 +101,24 @@ class Board {
     return true;
   }
 
-  solverFull(movement) {
-    AStar.nextMove(this, this.start, movement);
+  solverFull(movement, solver) {
+    let choosedAlgorithm;
+    switch(solver) {
+      case 'A* Star':
+        choosedAlgorithm = AStar;
+        break;
+      case 'Breadth First Search':
+        choosedAlgorithm = BFS;
+        break;
+      default:
+        choosedAlgorithm = AStar;
+    }
+    choosedAlgorithm.nextMove(this, this.start, movement);
     let finish = false;
     while (!finish) {
-      const currentPosCode = AStar.determineNextPosition(this);
+      const currentPosCode = choosedAlgorithm.determineNextPosition(this);
       if (typeof currentPosCode === 'number') {
-        AStar.nextMove(this, currentPosCode, movement);
+        choosedAlgorithm.nextMove(this, currentPosCode, movement);
         finish = this.finish();
       } else {
         finish = true;
