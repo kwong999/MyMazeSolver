@@ -29,8 +29,14 @@ class Main extends React.Component {
   solverFull(movement, solver) {
     if (!this.state.mazeSolved) {
       this.setState({ disableUpdateTileType: true, mazeSolved: true }, () => {
-        if (typeof this.state.maze.start !== 'number') return alert('Missing Starting Point!');
-        if (typeof this.state.maze.end !== 'number') return alert('Missing Ending Point!');
+        if (typeof this.state.maze.start !== 'number') {
+          this.setState({ mazeSolved: false });
+          return alert('Missing Starting Point!');
+        }
+        if (typeof this.state.maze.end !== 'number') {
+          this.setState({ mazeSolved: false });
+          return alert('Missing Ending Point!');
+        }
         this.state.maze.solverFull(movement, solver);
         this.setState({ mazeSolved: true });
       })
@@ -43,15 +49,12 @@ class Main extends React.Component {
     return (e) => {
       if (TYPE.includes(type)) {
         this.setState({ tileType: type });
-      } else {
-        console.log('invalid type');
       }
     }
   }
   
   setMainState(key, value) {
     this.setState({ [key]: value })
-    console.log(this.state);
   }
 
   renderParent() {
@@ -60,8 +63,6 @@ class Main extends React.Component {
   // methods pass to Controller END
 
   render() {
-    console.log(this.constructor.name);
-    console.log(this.state);
     return(
       <>
         <nav className='nav-bar'>

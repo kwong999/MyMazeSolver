@@ -19,7 +19,7 @@ class Controller extends React.Component {
       dimensionRow: this.props.maze.dimension[0],
       dimensionCol: this.props.maze.dimension[1],
       movement: 'All Direction',
-      solver: 'Breadth First Search',
+      solver: 'A* Star',
       state: 'state'
     }
     this.handleChange = this.handleChange.bind(this);
@@ -65,14 +65,12 @@ class Controller extends React.Component {
   }
 
   fullReset(e) {
-    console.log('fullReset');
     e.preventDefault();
     this.props.maze.fullReset();
     this.props.setMainState('mazeSolved', false);
   }
 
   softReset(e) {
-    console.log('softReset');
     e.preventDefault();
     this.props.maze.softReset();
     this.props.setMainState('mazeSolved', false);
@@ -96,8 +94,6 @@ class Controller extends React.Component {
   }
 
   render() {
-    console.log(this.constructor.name);
-    console.log(this.state);
     const { solverFull, tileType, changeTileType } = this.props;
     const currentTileType = this.capitalize(tileType)
     return(

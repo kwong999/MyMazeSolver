@@ -11,7 +11,6 @@ class Board extends React.Component {
   }
   
   handleTileClick(tile) {
-    console.log('handleTileClick');
     return (e) => {
       if (!this.props.mazeSolved) {
         this.updateTileType(tile.pos);

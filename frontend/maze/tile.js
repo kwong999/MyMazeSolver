@@ -23,7 +23,6 @@ class Tile {
       this.type = type;
       return true;
     } else {
-      console.log('invalid type');
       return false;
     }
   }

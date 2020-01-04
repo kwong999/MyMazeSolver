@@ -152,11 +152,9 @@ class Board {
   printSolution() {
     const [x, y] = this.codeToPos(this.end);
     let endTile = this.board[x][y];
-    if (!endTile.parent) return console.log('No Solution');
-    console.log(endTile.pos);
+    if (!endTile.parent) return false;
     while (!!endTile.parent) {
       endTile = endTile.parent;
-      console.log(endTile.pos);
     }
   }
 
@@ -174,40 +172,3 @@ class Board {
 }
 
 module.exports = Board;
-
-//test start
-// let maze1 = new Board([4, 4]);
-// maze1.changeTileType([1, 0], 'start');
-// maze1.changeTileType([1, 3], 'end');
-// maze1.changeTileType([0, 1], 'wall');
-// maze1.changeTileType([1, 1], 'wall');
-// maze1.changeTileType([2, 1], 'wall');
-
-// let maze2 = new Board([6, 14]);
-// maze2.changeTileType([5, 0], 'start');
-// maze2.changeTileType([0, 13], 'end');
-// maze2.changeTileType([1, 4], 'wall');
-// maze2.changeTileType([2, 4], 'wall');
-// maze2.changeTileType([3, 4], 'wall');
-// maze2.changeTileType([4, 4], 'wall');
-// maze2.changeTileType([5, 4], 'wall');
-// maze2.changeTileType([0, 9], 'wall');
-// maze2.changeTileType([1, 9], 'wall');
-// maze2.changeTileType([2, 9], 'wall');
-// maze2.changeTileType([3, 9], 'wall');
-// maze2.changeTileType([4, 9], 'wall');
-// maze2.changeTileType([1, 12], 'wall');
-// maze2.changeTileType([1, 13], 'wall');
-
-// b.changeTileType([4, 4], 'started');
-// b.next_move(b.start);
-// let nextPosCode = b.determineNextPosition()
-// b.next_move(nextPosCode);
-// b.printSolution();
-
-// try {
-//   maze1.solverFull();
-// } catch (error) {
-//   console.log(error);
-// }
-// console.log('Done');
