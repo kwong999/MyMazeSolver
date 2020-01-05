@@ -1,4 +1,4 @@
-# [Maze Solver](https://google.com/)
+# [Maze Solver](https://my-maze-solver.herokuapp.com/)
 
 ## Description
 
