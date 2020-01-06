@@ -13,3 +13,10 @@ An application allow users build and solve maze.
 * Investigate searched path
 * Make minor changes without reset whole maze
 ![Maze](/readme/maze.jpg?raw=true "Maze")
+
+## Built With
+
+* React
+* Express
+* Webpack
+* HTML5
