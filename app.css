@@ -20,6 +20,10 @@ ul {
   width: min-content;
 }
 
+button {
+  cursor: pointer;
+}
+
 body {
   background: rgba(0, 0, 0, 0.219);
 }
