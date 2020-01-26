@@ -1,16 +1,12 @@
 import React from 'react';
 import ControllerLeft from './component/controller/controller_left';
+import ControllerRight from './component/controller/controller_right';
 
 const TYPE = [
   'blank',
   'wall',
   'start',
   'end'
-]
-
-const SOLVER = [
-  'A* Star',
-  'Breadth First Search'
 ]
 
 class Controller extends React.Component {
@@ -30,6 +26,7 @@ class Controller extends React.Component {
     this.changeMovement = this.changeMovement.bind(this);
     this.changeDisplaySearchedTile = this.changeDisplaySearchedTile.bind(this);
     this.changeSolver = this.changeSolver.bind(this);
+    this.optionList = this.optionList.bind(this);
   }
 
   handleChange(type) {
@@ -96,61 +93,30 @@ class Controller extends React.Component {
 
   render() {
     const { solverFull, tileType, changeTileType } = this.props;
-    const currentTileType = this.capitalize(tileType)
+    const currentTileType = this.capitalize(tileType);
     return(
       <div className='controller'>
         <h2>Controller Panel</h2>
         <div className='controller-sub'>
           <ControllerLeft
-            dimensionRow = {this.state.dimensionRow}
-            dimensionCol = {this.state.dimensionCol}
-            handleChange= {this.handleChange}
-            handleBuildBoard = {this.handleBuildBoard}
-            optionList = {this.optionList.bind(this)}
-            tileType = {tileType}
-            currentTileType= {currentTileType}
+            dimensionRow={this.state.dimensionRow}
+            dimensionCol={this.state.dimensionCol}
+            handleChange={this.handleChange}
+            handleBuildBoard={this.handleBuildBoard}
+            optionList={this.optionList}
+            tileType={tileType}
+            currentTileType={currentTileType}
           />
-          <div className='controller-right'>
-            <div className='maze-action'>
-              <div>
-                <p>Movement: </p>
-                <button 
-                  className={`${(this.state.movement === 'All Direction') ? 'all-direction' : ''}`}
-                  onClick={this.changeMovement}>
-                  {this.state.movement}
-                </button>
-              </div>
-              <div>
-                <p>Display Searched Tile: </p>
-                <input
-                  className='checkbox'
-                  type='checkbox'
-                  checked={this.props.displaySearchedTile}
-                  onChange={this.changeDisplaySearchedTile}
-                />
-              </div>
-              <div>
-                <p>Solver: </p>
-                <select value={this.state.solver} onChange={this.changeSolver}>
-                  {SOLVER.map( (solver, idx) => (
-                    <option value={solver} key={idx}>{solver}</option>
-                  ))}
-                </select>
-              </div>
-              <button onClick={() => solverFull(this.state.movement, this.state.solver)}>Solve It!</button>
-              <button onClick={this.fullReset}>Full Reset</button>
-              <button onClick={this.softReset}>Soft Reset</button>
-              <label>
-                <p>Label:</p>
-                <dl>
-                  <dt className='solution'></dt>
-                  <dd>: Solution path</dd>
-                  <dt className='used'></dt>
-                  <dd>: Searched Tile</dd>
-                </dl>
-              </label>
-            </div>
-          </div>
+          <ControllerRight
+            movement={this.state.movement}
+            changeMovement={this.changeMovement}
+            displaySearchedTile={this.props.displaySearchedTile}
+            changeDisplaySearchedTile={this.changeDisplaySearchedTile}
+            solver={this.state.solver}
+            changeSolver={this.changeSolver}
+            fullReset={this.fullReset}
+            softReset={this.softReset}
+          />
         </div>
       </div>
     )

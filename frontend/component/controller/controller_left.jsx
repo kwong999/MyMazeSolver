@@ -1,10 +1,6 @@
 import React from 'react';
 
 class ControllerLeft extends React.Component {
-  constructor(props) {
-    super(props);
-
-  }
   render() {
     return(
       <div className='controller-left'>
