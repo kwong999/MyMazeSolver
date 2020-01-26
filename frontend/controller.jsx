@@ -1,4 +1,5 @@
 import React from 'react';
+import ControllerLeft from './component/controller/controller_left';
 
 const TYPE = [
   'blank',
@@ -100,38 +101,15 @@ class Controller extends React.Component {
       <div className='controller'>
         <h2>Controller Panel</h2>
         <div className='controller-sub'>
-          <div className='controller-left'>
-            <form className='build-board'>
-              <p>Dimension</p>
-              <dl>
-                <dt>Row:</dt>
-                <dd><input
-                  type='number'
-                  value={this.state.dimensionRow}
-                  min='1'
-                  max='20'
-                  onChange={this.handleChange('dimensionRow')}
-                /></dd>
-                <dt>Column:</dt>
-                <dd><input
-                  type='number'
-                  value={this.state.dimensionCol}
-                  min='1'
-                  max='20'
-                  onChange={this.handleChange('dimensionCol')}
-                /></dd>
-              </dl>
-              <button type='submit' onClick={this.handleBuildBoard}>Build Board</button>
-            </form>
-            <div className='tile-option'>
-              <div>
-                <p>Current Tile Type: <span>{currentTileType}</span></p>
-                <div className={tileType}></div>
-              </div>
-              {this.optionList()}
-              <p>Left click to update tile.</p>
-            </div>
-          </div>
+          <ControllerLeft
+            dimensionRow = {this.state.dimensionRow}
+            dimensionCol = {this.state.dimensionCol}
+            handleChange= {this.handleChange}
+            handleBuildBoard = {this.handleBuildBoard}
+            optionList = {this.optionList.bind(this)}
+            tileType = {tileType}
+            currentTileType= {currentTileType}
+          />
           <div className='controller-right'>
             <div className='maze-action'>
               <div>
