@@ -92,7 +92,7 @@ class Controller extends React.Component {
   }
 
   render() {
-    const { solverFull, tileType, changeTileType } = this.props;
+    const { tileType } = this.props;
     const currentTileType = this.capitalize(tileType);
     return(
       <div className='controller'>
@@ -114,6 +114,7 @@ class Controller extends React.Component {
             changeDisplaySearchedTile={this.changeDisplaySearchedTile}
             solver={this.state.solver}
             changeSolver={this.changeSolver}
+            solverFull={this.props.solverFull}
             fullReset={this.fullReset}
             softReset={this.softReset}
           />

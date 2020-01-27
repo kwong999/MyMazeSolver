@@ -35,7 +35,7 @@ class ControllerRight extends React.Component {
               ))}
             </select>
           </div>
-          <button onClick={() => solverFull(this.props.movement, this.props.solver)}>Solve It!</button>
+          <button onClick={() => this.props.solverFull(this.props.movement, this.props.solver)}>Solve It!</button>
           <button onClick={this.props.fullReset}>Full Reset</button>
           <button onClick={this.props.softReset}>Soft Reset</button>
           <label>
