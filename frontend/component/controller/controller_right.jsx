@@ -1,5 +1,6 @@
 import React from 'react';
 import MovementOption from './movement_option';
+import TileDisplayOption from './tile_display_option';
 
 const SOLVER = [
   'A* Star',
@@ -14,17 +15,10 @@ class ControllerRight extends React.Component {
           movement={this.props.movement}
           changeMovement={this.props.changeMovement}
         />
-        <div className='maze-action'>
-          <div>
-            <p>Display Searched Tile: </p>
-            <input
-              className='checkbox'
-              type='checkbox'
-              checked={this.props.displaySearchedTile}
-              onChange={this.props.changeDisplaySearchedTile}
-            />
-          </div>
-        </div>
+        <TileDisplayOption
+          displaySearchedTile={this.props.displaySearchedTile}
+          changeDisplaySearchedTile={this.props.changeDisplaySearchedTile}
+        />
         <div className='maze-action'>
           <div>
             <p>Solver: </p>
