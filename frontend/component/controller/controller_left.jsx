@@ -1,5 +1,6 @@
 import React from 'react';
 import BuildBoard from './build_board';
+import TileOption from './tile_option';
 
 class ControllerLeft extends React.Component {
   render() {
@@ -11,14 +12,11 @@ class ControllerLeft extends React.Component {
           handleChange={this.props.handleChange}
           handleBuildBoard={this.props.handleBuildBoard}
         />
-        <div className='tile-option'>
-          <div>
-            <p>Current Tile Type: <span>{this.props.currentTileType}</span></p>
-            <div className={this.props.tileType}></div>
-          </div>
-          {this.props.optionList()}
-          <p>Left click to update tile.</p>
-        </div>
+        <TileOption
+          currentTileType={this.props.currentTileType}
+          tileType={this.props.tileType}
+          optionList={this.props.optionList}
+        />
       </div>
     )
   }

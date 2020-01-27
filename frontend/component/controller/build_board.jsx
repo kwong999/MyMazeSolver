@@ -29,4 +29,4 @@ class BuildBoard extends React.Component {
   }
 }
 
-export default BuildBoard
+export default BuildBoard;
