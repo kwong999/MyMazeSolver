@@ -20,6 +20,7 @@ const BFS  = {
       const potentialPos = [currentX + x, currentY + y]
       if (!currentBoard.validPosition(potentialPos)) continue;
       if (currentBoard.isWall(potentialPos)) continue;
+      if (currentBoard.board[currentX + x][currentY + y].usedMove) continue;
       if (currentBoard.start === currentBoard.posToCode(potentialPos)) continue;
       const potentialTile = new Tile(potentialPos, currentBoard.board[currentX][currentY]);
       potentialTile.possibleMove = true;
