@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.jsx",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "dev": "webpack-dev-server --mode development --open",
     "webpack": "webpack --mode=development --watch",
     "start": "node server.js",
