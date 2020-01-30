@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.jsx",
   "scripts": {
-    "test": "jest",
+    "test": "jest --watchAll",
     "dev": "webpack-dev-server --mode development --open",
     "webpack": "webpack --mode=development --watch",
     "start": "node server.js",
