@@ -1,6 +1,8 @@
 const Board = require('./board.js');
 const Tile = require('./tile');
+const BFS = require('./solver/bfs');
 jest.mock('./tile');
+jest.mock('./solver/bfs');
 
 beforeEach(() => {
   // Clear all instances and calls to constructor and all methods:
@@ -170,20 +172,150 @@ describe("Board functions", () => {
         expect(mChangeType.mock.calls[0][1]).toBeUndefined();
       });
     });
-    describe("solverFull", () => {
-      test("", () => {
-
-      });
-    });
     describe("finish", () => {
-      test("", () => {
-
+      const board = new Board([3, 3]);
+      test("will return true when end tile is a possible move", () => {
+        board.end = 4;
+        board.possibleMove = [1, 2, 4];
+        expect(board.finish()).toBeTruthy();
+      });
+      test("will return true when all possible moves are used", () => {
+        board.end = 8;
+        board.possibleMove = [1, 2, 3, 6];
+        board.usedMove = [1, 2, 3, 6];
+        expect(board.finish()).toBeTruthy();
       });
     });
     describe("setSolution", () => {
-      test("", () => {
-
+      const board = new Board([3, 3]);
+      board.start = 2;
+      board.end = 6;
+      board.board[2][0].parent = board.board[1][0];
+      board.board[1][0].parent = board.board[0][0];
+      board.board[0][0].parent = board.board[0][1];
+      board.board[0][1].parent = board.board[0][2];
+      board.setSolution();
+      test("only update solution path tiles", () => {
+        expect(board.board[1][0].solution).toBeTruthy();
+        expect(board.board[0][0].solution).toBeTruthy();
+        expect(board.board[0][1].solution).toBeTruthy();
+        expect(board.board[0][2].solution).toBeTruthy();
+        expect(board.board[1][1].solution).toBeFalsy();
       });
+    });
+    describe("solverFull", () => {
+      test("solve the maze with solution path", () => {
+        const board = new Board([3, 3]);
+        board.board[0][2].type = 'start';
+        board.board[2][0].type = 'end';
+        board.start = 2;
+        board.end = 6;
+        const nextMove1 = jest.fn( () => {
+          board.usedMove.push(2);
+          board.possibleMove.push(5);
+          board.board[1][2].parent = board.board[0][2];
+          board.possibleMove.push(1);
+          board.board[0][1].parent = board.board[0][2];
+        })
+        const nextMove2 = jest.fn(() => {
+          board.usedMove.push(5);
+          board.possibleMove.push(8);
+          board.board[2][2].parent = board.board[1][2];
+          board.possibleMove.push(4);
+          board.board[1][1].parent = board.board[1][2];
+        })
+        const nextMove3 = jest.fn(() => {
+          board.usedMove.push(1);
+          board.possibleMove.push(4);
+          board.board[1][1].parent = board.board[0][1];
+          board.possibleMove.push(0);
+          board.board[0][0].parent = board.board[0][1];
+        })
+        const nextMove4 = jest.fn(() => {
+          board.usedMove.push(8);
+          board.possibleMove.push(7);
+          board.board[2][1].parent = board.board[2][2];
+        })
+        const nextMove5 = jest.fn(() => {
+          board.usedMove.push(4);
+          board.possibleMove.push(7);
+          board.board[2][1].parent = board.board[1][1];
+          board.possibleMove.push(3);
+          board.board[1][0].parent = board.board[1][1];
+        })
+        const nextMove6 = jest.fn(() => {
+          board.usedMove.push(0);
+          board.possibleMove.push(3);
+          board.board[1][0].parent = board.board[0][0];
+        })
+        const nextMove7 = jest.fn(() => {
+          board.usedMove.push(7);
+          board.possibleMove.push(6);
+          board.board[2][0].parent = board.board[2][1];
+        })
+        BFS.nextMove
+          .mockReturnValueOnce(nextMove1())
+          .mockReturnValueOnce(nextMove2())
+          .mockReturnValueOnce(nextMove3())
+          .mockReturnValueOnce(nextMove4())
+          .mockReturnValueOnce(nextMove5())
+          .mockReturnValueOnce(nextMove6())
+          .mockReturnValueOnce(nextMove7());
+        BFS.determineNextPosition
+          .mockReturnValueOnce(5)
+          .mockReturnValueOnce(1)
+          .mockReturnValueOnce(8)
+          .mockReturnValueOnce(4)
+          .mockReturnValueOnce(0)
+          .mockReturnValueOnce(7);
+        board.solverFull("", "Breadth First Search");
+        expect(board.board[0][0].solution).toBeUndefined();
+        expect(board.board[0][1].solution).toBeTruthy();
+        expect(board.board[0][2].solution).toBeUndefined();
+        expect(board.board[1][0].solution).toBeUndefined();
+        expect(board.board[1][1].solution).toBeTruthy();
+        expect(board.board[1][2].solution).toBeUndefined();
+        expect(board.board[2][0].solution).toBeUndefined();
+        expect(board.board[2][1].solution).toBeTruthy();
+        expect(board.board[2][2].solution).toBeUndefined();
+      });
+      test("not solve if end tile is blocked", () => {
+        const board = new Board([3, 3]);
+        board.board[0][2].type = 'start';
+        board.board[2][0].type = 'end';
+        board.start = 2;
+        board.end = 6;
+        const nextMove1 = jest.fn(() => {
+          board.usedMove.push(2);
+          board.possibleMove.push(5);
+          board.board[1][2].parent = board.board[0][2];
+          board.possibleMove.push(1);
+          board.board[0][1].parent = board.board[0][2];
+        })
+        const nextMove2 = jest.fn(() => {
+          board.usedMove.push(5);
+        })
+        const nextMove3 = jest.fn(() => {
+          board.usedMove.push(1);
+        })
+        BFS.nextMove
+          .mockReturnValueOnce(nextMove1())
+          .mockReturnValueOnce(nextMove2())
+          .mockReturnValueOnce(nextMove3());
+        BFS.determineNextPosition
+          .mockReturnValueOnce(5)
+          .mockReturnValueOnce(1);
+        board.solverFull("", "Breadth First Search");
+        expect(board.board[0][0].solution).toBeUndefined();
+        expect(board.board[0][1].solution).toBeUndefined();
+        expect(board.board[0][2].solution).toBeUndefined();
+        expect(board.board[1][0].solution).toBeUndefined();
+        expect(board.board[1][1].solution).toBeUndefined();
+        expect(board.board[1][2].solution).toBeUndefined();
+        expect(board.board[2][0].solution).toBeUndefined();
+        expect(board.board[2][1].solution).toBeUndefined();
+        expect(board.board[2][2].solution).toBeUndefined();
+      })
     });
   });
 });
