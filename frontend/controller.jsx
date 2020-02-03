@@ -2,13 +2,6 @@ import React from 'react';
 import ControllerLeft from './component/controller/controller_left';
 import ControllerRight from './component/controller/controller_right';
 
-const TYPE = [
-  'blank',
-  'wall',
-  'start',
-  'end'
-]
-
 class Controller extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +19,6 @@ class Controller extends React.Component {
     this.changeMovement = this.changeMovement.bind(this);
     this.changeDisplaySearchedTile = this.changeDisplaySearchedTile.bind(this);
     this.changeSolver = this.changeSolver.bind(this);
-    this.optionList = this.optionList.bind(this);
   }
 
   handleChange(type) {
@@ -74,26 +66,8 @@ class Controller extends React.Component {
     this.props.setMainState('mazeSolved', false);
   }
 
-  optionList() {
-    return(
-      TYPE.map(option => (
-        <button onClick={this.props.changeTileType(option)} key={option}>
-          <div>
-            <p>{this.capitalize(option)}</p>
-            <div className={option}></div>
-          </div>
-        </button>
-      ))
-    )
-  }
-
-  capitalize(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }
-
   render() {
     const { tileType } = this.props;
-    const currentTileType = this.capitalize(tileType);
     return(
       <div className='controller'>
         <h2>Controller Panel</h2>
@@ -103,9 +77,8 @@ class Controller extends React.Component {
             dimensionCol={this.state.dimensionCol}
             handleChange={this.handleChange}
             handleBuildBoard={this.handleBuildBoard}
-            optionList={this.optionList}
+            changeTileType={this.props.changeTileType}
             tileType={tileType}
-            currentTileType={currentTileType}
           />
           <ControllerRight
             movement={this.state.movement}

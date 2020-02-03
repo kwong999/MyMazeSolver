@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TileOption with option "TEST" 1`] = `
+<div
+  className="tile-option"
+>
+  <div>
+    <p>
+      Current Tile Type: 
+      <span>
+        TEST
+      </span>
+    </p>
+    <div
+      className="TEST"
+    />
+  </div>
+  <button>
+    <div>
+      <p>
+        Blank
+      </p>
+      <div
+        className="blank"
+      />
+    </div>
+  </button>
+  <button>
+    <div>
+      <p>
+        Wall
+      </p>
+      <div
+        className="wall"
+      />
+    </div>
+  </button>
+  <button>
+    <div>
+      <p>
+        Start
+      </p>
+      <div
+        className="start"
+      />
+    </div>
+  </button>
+  <button>
+    <div>
+      <p>
+        End
+      </p>
+      <div
+        className="end"
+      />
+    </div>
+  </button>
+  <p>
+    Left click to update tile.
+  </p>
+</div>
+`;

@@ -13,9 +13,8 @@ class ControllerLeft extends React.Component {
           handleBuildBoard={this.props.handleBuildBoard}
         />
         <TileOption
-          currentTileType={this.props.currentTileType}
           tileType={this.props.tileType}
-          optionList={this.props.optionList}
+          changeTileType={this.props.changeTileType}
         />
       </div>
     )
