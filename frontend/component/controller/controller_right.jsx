@@ -1,11 +1,7 @@
 import React from 'react';
 import MovementOption from './movement_option';
 import TileDisplayOption from './tile_display_option';
-
-const SOLVER = [
-  'A* Star',
-  'Breadth First Search'
-]
+import SolverOption from './solver_option';
 
 class ControllerRight extends React.Component {
   render() {
@@ -19,19 +15,14 @@ class ControllerRight extends React.Component {
           displaySearchedTile={this.props.displaySearchedTile}
           changeDisplaySearchedTile={this.props.changeDisplaySearchedTile}
         />
-        <div className='maze-action'>
-          <div>
-            <p>Solver: </p>
-            <select value={this.props.solver} onChange={this.props.changeSolver}>
-              {SOLVER.map((solver, idx) => (
-                <option value={solver} key={idx}>{solver}</option>
-              ))}
-            </select>
-          </div>
-          <button onClick={() => this.props.solverFull(this.props.movement, this.props.solver)}>Solve It!</button>
-          <button onClick={this.props.fullReset}>Full Reset</button>
-          <button onClick={this.props.softReset}>Soft Reset</button>
-        </div>
+        <SolverOption
+          movement={this.props.movement}
+          solver={this.props.solver}
+          changeSolver={this.props.changeSolver}
+          solverFull={this.props.solverFull}
+          fullReset={this.props.fullReset}
+          softReset={this.props.softReset}
+        />
         <div className='maze-action'>
           <label>
             <p>Label:</p>
