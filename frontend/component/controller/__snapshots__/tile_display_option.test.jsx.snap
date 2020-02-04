@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TileDisplayOption with checkbox to activate "Searched Tiles" 1`] = `
+<div
+  className="tile-display-option maze-action"
+>
+  <div>
+    <p>
+      Display Searched Tile: 
+    </p>
+    <input
+      checked={[Function]}
+      className="checkbox"
+      onChange={[Function]}
+      type="checkbox"
+    />
+  </div>
+</div>
+`;
