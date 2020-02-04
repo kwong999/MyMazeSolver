@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MovementOption have class name "all-direction" 1`] = `
+<div
+  className="movement-option maze-action"
+>
+  <div>
+    <p>
+      Movement: 
+    </p>
+    <button
+      className="all-direction"
+      onClick={[Function]}
+    >
+      All Direction
+    </button>
+  </div>
+</div>
+`;
+
+exports[`MovementOption not have class name "all-direction" 1`] = `
+<div
+  className="movement-option maze-action"
+>
+  <div>
+    <p>
+      Movement: 
+    </p>
+    <button
+      className=""
+      onClick={[Function]}
+    >
+      No Diagonal
+    </button>
+  </div>
+</div>
+`;
