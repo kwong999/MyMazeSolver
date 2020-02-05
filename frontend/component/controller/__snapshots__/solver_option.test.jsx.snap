@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SolverOption should render without error 1`] = `
+<div
+  className="maze-action"
+>
+  <div>
+    <p>
+      Solver: 
+    </p>
+    <select
+      onChange={[MockFunction]}
+      value="A* Star"
+    >
+      <option
+        value="A* Star"
+      >
+        A* Star
+      </option>
+      <option
+        value="Breadth First Search"
+      >
+        Breadth First Search
+      </option>
+    </select>
+  </div>
+  <button
+    onClick={[Function]}
+  >
+    Solve It!
+  </button>
+  <button
+    onClick={[MockFunction]}
+  >
+    Full Reset
+  </button>
+  <button
+    onClick={[MockFunction]}
+  >
+    Soft Reset
+  </button>
+</div>
+`;
