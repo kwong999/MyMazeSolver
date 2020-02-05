@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TileLabel should render without error 1`] = `
+<div
+  className="maze-action"
+>
+  <label>
+    <p>
+      Label:
+    </p>
+    <dl>
+      <dt
+        className="solution"
+      />
+      <dd>
+        : Solution path
+      </dd>
+      <dt
+        className="used"
+      />
+      <dd>
+        : Searched Tile
+      </dd>
+    </dl>
+  </label>
+</div>
+`;
