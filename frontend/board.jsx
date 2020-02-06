@@ -42,7 +42,7 @@ class Board extends React.Component {
         onClick={this.handleTileClick(tile)}
         key={`tile-${tile.pos[0]}-${tile.pos[1]}`}
       >
-        <Tile tile={tile} />
+        <Tile />
       </div>
     ))
   }
