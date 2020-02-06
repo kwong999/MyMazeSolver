@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BuildBoard should render without error 1`] = `
+<form
+  className="build-board"
+>
+  <p>
+    Dimension
+  </p>
+  <dl>
+    <dt>
+      Row:
+    </dt>
+    <dd>
+      <input
+        max="20"
+        min="1"
+        onChange={[MockFunction]}
+        type="number"
+        value="9"
+      />
+    </dd>
+    <dt>
+      Column:
+    </dt>
+    <dd>
+      <input
+        max="20"
+        min="1"
+        onChange={[MockFunction]}
+        type="number"
+        value="10"
+      />
+    </dd>
+  </dl>
+  <button
+    onClick={[MockFunction]}
+    type="submit"
+  >
+    Build Board
+  </button>
+</form>
+`;
