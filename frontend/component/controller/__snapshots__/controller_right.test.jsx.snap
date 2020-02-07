@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ControllerRight test should render without error 1`] = `
+<div
+  className="controller-right"
+>
+  <MovementOption
+    changeMovement="changeMovement"
+    movement="movement"
+  />
+  <TileDisplayOption
+    changeDisplaySearchedTile="changeDisplaySearchedTile"
+    displaySearchedTile="displaySearchedTile"
+  />
+  <SolverOption
+    changeSolver="changeSolver"
+    fullReset="fullReset"
+    movement="movement"
+    softReset="softReset"
+    solver="solver"
+    solverFull="solverFull"
+  />
+  <TileLabel />
+</div>
+`;

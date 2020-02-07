@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`controller_left test should render without error 1`] = `
+<div
+  className="controller-left"
+>
+  <BuildBoard
+    dimensionCol="dimensionCol"
+    dimensionRow="dimensionRow"
+    handleBuildBoard="handleBuildBoard"
+    handleChange="handleChange"
+  />
+  <TileOption
+    changeTileType="changeTileType"
+    tileType="tileType"
+  />
+</div>
+`;
