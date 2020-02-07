@@ -21,7 +21,7 @@ describe('controller_left', () => {
     expect(tree).toMatchSnapshot();
   })
 
-  test('child component BuildBoard have props', () => {
+  test('child component BuildBoard has props', () => {
     let componentInstance = component.root;
     let buildBoardProps = componentInstance.findByType('BuildBoard').props;
     expect(buildBoardProps.dimensionRow).toMatch('dimensionRow');
@@ -30,7 +30,7 @@ describe('controller_left', () => {
     expect(buildBoardProps.handleBuildBoard).toMatch('handleBuildBoard');
   })
 
-  test('child component TileOption have props', () => {
+  test('child component TileOption has props', () => {
     let componentInstance = component.root;
     let tileOptionProps = componentInstance.findByType('TileOption').props;
     expect(tileOptionProps.tileType).toMatch('tileType');
