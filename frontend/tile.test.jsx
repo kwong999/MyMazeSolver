@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import Tile from './tile';
 
-describe('Tile', () => {
+describe('<Tile />', () => {
   const component = renderer.create(
     <Tile />
   )
