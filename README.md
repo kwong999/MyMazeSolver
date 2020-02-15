@@ -2,7 +2,7 @@
 
 ## Description
 
-An application allow users build and solve maze.
+An application for maze customization and analysis.
 
 ![Index](/readme/index.jpg?raw=true "Index")
 
@@ -19,6 +19,7 @@ An application allow users build and solve maze.
 ## Built With
 
 * React
+* Jest
 * Express
 * Webpack
 * HTML5
