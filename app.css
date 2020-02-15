@@ -25,12 +25,13 @@ button {
 }
 
 body {
-  background: rgba(0, 0, 0, 0.219);
+  background: rgba(12, 12, 12);
+  color: white;
 }
 
 /* header START */
 header {
-  background-image: linear-gradient(to right, lightblue , lightgreen);
+  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.25) , rgba(255, 255, 255, 0.50));
   font-size: 36px;
   font-weight: bold;
   padding: 5px 0;
@@ -38,6 +39,9 @@ header {
 h1 {
   width: fit-content;
   margin: auto;
+  color: rgb(187, 134, 252);
+  font-family: "Arial Black", Gadget, sans-serif;
+  text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
 }
 /* header END */
 
@@ -49,25 +53,31 @@ h2 {
 
 .nav-bar {
   padding: 10px 0;
-  background: lightskyblue;
-  border-bottom: black 4px solid;
+  border-bottom: rgba(255, 255, 255, 0.16) 4px solid;
 }
 
 .controller {
   width: max-content;
   margin: auto;
   font-size: 24px;
+  color: rgb(255, 117, 151);
 }
 
 .controller button {
   font-size: 16px;
   margin-right: 5px;
   border-radius: 5px;
+  border: 2px rgb(255, 255, 255, 0.25) solid;
+  padding: 2px 5px;
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .controller button:hover {
-  background: black;
+  background: rgba(255, 255, 255, 0.25);
   color: white;
+  text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+  box-shadow: 0px 5px 40px -10px rgba(12, 12, 12, 0.57);
+  transition: all 0.4s ease 0s;
 }
 
 .nav-bar span {
@@ -83,7 +93,7 @@ h2 {
 .controller-right > * {
   padding: 5px;
   margin: 5px;
-  border: 1px rgb(0, 157, 255) solid;
+  border: 2px rgb(255, 255, 255, 0.12) solid;
   border-radius: 10px;
 }
 
@@ -100,8 +110,9 @@ h2 {
 }
 
 .build-board input{
+  margin-left: 1px;
   width: 50px;
-  border-bottom: 1px black solid;
+  border-bottom: 1px rgb(255, 117, 151) solid;
 }
 
 .tile-option > * {
@@ -117,7 +128,7 @@ h2 {
   width: 16px;
   height: 16px;
   margin: auto 5px;
-  border: lightgray 1px solid;
+  border: rgb(255, 255, 255, 0.75) 2px solid;
 }
 
 .tile-option > button > div {
@@ -130,7 +141,11 @@ h2 {
   margin-left: 2px;
   margin-top: 2px;
   margin-bottom: 2px;
-  border: lightgray 1px solid;
+  border: rgb(255, 255, 255, 0.75) 2px solid;
+}
+
+.tile-option > div > p {
+  min-width: 245px;
 }
 
 .maze-action > * {
@@ -144,11 +159,11 @@ h2 {
 
 .maze-action div > button {
   margin: 2px 5px;
-  background: rgb(238, 144, 144);
+  background: rgb(238, 144, 144, 0.75);
 }
 
 .maze-action .all-direction {
-  background: lightgreen;
+  background: rgb(144, 238, 144, 0.75);
 }
 
 .maze-action .checkbox {
@@ -185,7 +200,7 @@ h2 {
 
 .board {
   margin: auto;
-  border: lightgray 1px solid;
+  border: rgb(255, 255, 255, 0.50) 2px solid;
   max-width: 100%;
   overflow-x: scroll;
 }
@@ -199,16 +214,16 @@ h2 {
   box-sizing: border-box;
   min-width: 50px;
   height: 50px;
-  border: lightgray 1px solid;
+  border: rgb(255, 255, 255, 0.50) 2px solid;
   cursor: pointer;
 }
 
 .blank { 
-  background: white;
+  background: black;
 }
 
 .wall {
-  background: gray;
+  background: rgb(255, 255, 255, 0.75);
 }
 
 .possible {
@@ -216,19 +231,19 @@ h2 {
 }
 
 .used {
-  background: yellow;
+  background: rgb(255, 255, 0, 0.75);
 }
 
 .solution {
-  background: green;
+  background: rgb(0, 128, 0, 0.75);
 }
 
 .start {
-  background: lightgreen;
+  background: rgb(144, 238, 144, 0.75);
 }
 
 .end {
-  background: lightpink;
+  background: rgb(255, 182, 193, 0.75);
 }
 /* maze END */
 
